@@ -1,0 +1,38 @@
+.dmhyexp table .selector:hover {
+    background: #aaa;
+    cursor: pointer;
+}
+.dmhyexp .actionbar {
+    position: relative;
+    top: 1px;
+    margin-left: 2em;
+    float: left;
+}
+.dmhyexp .actionbar > a {
+    cursor: pointer;
+}
+.dmhyexp.exportbox {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 40%;
+    background: #fff;
+    border: 1px solid #247;
+    box-shadow: 0px 10px 10px rgba(100, 100, 100, 0.7);
+    padding: 1em;
+}
+.dmhyexp.exportbox textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 20em;
+    margin-bottom: 1rem;
+    padding: .5em;
+    font-size: 10px;
+    font-family: Consolas, monaco, monospace;
+}
+.dmhyexp.exportbox .copy-close {
+    display: block;
+    width: 8em;
+    margin: 0 auto;
+}
