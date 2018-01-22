@@ -16,15 +16,22 @@
     "main.js",
     "clipboard.min.js"
   ],
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  },
   "content_scripts": [
     {
       "matches": [
-        "https://share.dmhy.org/*",
-        "http://share.dmhy.org/*"
+        "*://share.dmhy.org/*"
       ],
       "css": ["style.css"],
       "js": ["content_script.js"],
       "run_at": "document_end"
     }
-  ]
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  }
 }
