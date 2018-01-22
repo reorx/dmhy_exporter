@@ -2,6 +2,8 @@
   var DE_TOP_CLASS = 'dmhyexp';
   var DE_SELECTOR = 'selector';
 
+  var MSG_TYPE_MAGNETS = 'MAGNETS';
+
   function ResourceContainer() {
     var self = this;
     $('.table').each(function() {
@@ -42,23 +44,27 @@
         var magnets = self.getSelectedMagnets();
         console.log('get magnets', magnets);
         var text = magnets.join('\n');
-        self.showExportBox(text);
+        self.showExportBox(magnets, text);
       });
 
-      var testBtn = $('<a>Test</a>');
-      actionbar.append(testBtn);
+      var aria2Btn = $('<a>Aria2 RPC</a>');
+      actionbar.append(aria2Btn);
 
-      testBtn.click(function(e) {
+      aria2Btn.click(function(e) {
         e.preventDefault();
-        sendChromeMessage({greeting: 'hello'});
+        var magnets = self.getSelectedMagnets();
+        console.log('get magnets', magnets);
+        sendChromeMessage({
+          type: MSG_TYPE_MAGNETS,
+          data: magnets,
+        });
       });
 
       return actionbar;
     };
 
-    this.navs.each(function() {
-      $(this).append(createActionbar());
-    });
+    this.navs.eq(0).find('.fl').after(createActionbar());
+    this.navs.eq(1).append(createActionbar());
   };
 
   ResourceContainer.prototype.initTableUI = function() {
@@ -94,35 +100,72 @@
     return magnets;
   };
 
-  ResourceContainer.prototype.showExportBox = function(text) {
+  ResourceContainer.prototype.initExportBox = function() {
+    var self = this;
+    var box = $(
+      '<div class="dmhyexp exportbox">' +
+        '<textarea rows="10" spellcheck="false"></textarea>' +
+        '<div class="buttons">' +
+          '<button class="copy-close">Copy & Close</button>' +
+          '<button class="aria2-close">Aria2 RPC & Close</button>' +
+        '</dvi>' +
+      '</dvi>'
+    );
+    $('body').append(box);
+
+    // textarea
+    box.find('textarea').keyup(function() {
+      self.toggleAria2Btn($(this).val() === '');
+    });
+
+    // copy & close
+    var clipboard = new Clipboard('.exportbox .copy-close', {
+      target: function(trigger) {
+          return box.find('textarea')[0];
+      }
+    });
+    clipboard.on('success', function(e) {
+      // e.clearSelection();
+      self.hideExportBox();
+    });
+
+    // aria2 & close
+    box.find('.aria2-close').click(function(e) {
+      e.preventDefault();
+      var magnets = box.data('magnets');
+      if (magnets === undefined)
+        magnets = [];
+      sendChromeMessage({
+        type: MSG_TYPE_MAGNETS,
+        data: magnets,
+      });
+      self.hideExportBox();
+    });
+
+    // set exportbox
+    this.exportBox = box;
+  }
+
+  ResourceContainer.prototype.showExportBox = function(magnets, text) {
     var self = this;
     if (this.exportBox === undefined) {
-      var box = $(
-        '<div class="dmhyexp exportbox">' +
-          '<textarea rows="10" spellcheck="false"></textarea>' +
-          '<button class="copy-close">Copy & Close</button>' +
-        '</dvi>'
-      );
-      // box.find('textarea').on('focus', function() {
-      //   $(this).select();
-      // });
-      // box.find('.copy-close').
-      $('body').append(box);
-      var clipboard = new Clipboard('.exportbox .copy-close', {
-        target: function(trigger) {
-            return box.find('textarea')[0];
-        }
-      });
-      clipboard.on('success', function(e) {
-        // e.clearSelection();
-        self.hideExportBox();
-      });
-
-      // set exportbox
-      this.exportBox = box;
+      this.initExportBox();
     }
+
+    // set data
+    this.exportBox.data('magnets', magnets);
     this.exportBox.find('textarea').text(text);
+
+    // change ui
+    this.toggleAria2Btn(magnets.length === 0)
+
+    // show
     this.exportBox.show();
+  };
+
+  ResourceContainer.prototype.toggleAria2Btn = function(flag) {
+    var aria2Btn = this.exportBox.find('.aria2-close');
+    aria2Btn.attr('disabled', flag);
   };
 
   ResourceContainer.prototype.hideExportBox = function() {

@@ -10,6 +10,9 @@ var insertScript = function(name) {
 (function() {
   console.log('dmhy: content_script.js');
 
+  // The main reason to inject code into the page is because
+  // I don't want to involve a full jQuery in my code, and luckly dmhy has one,
+  // but can only be used in the page window.
   insertScript('clipboard.min.js');
   insertScript('main.js');
 
