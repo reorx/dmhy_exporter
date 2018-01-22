@@ -1,0 +1,12 @@
+var messageHandlers = {
+}
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log(
+    "background received:",
+    sender.tab ?
+    'from a content script:' + sender.tab.url :
+    'from the extension');
+  // if (request.greeting == 'hello')
+  //   sendResponse({farewell: 'goodbye'});
+});
