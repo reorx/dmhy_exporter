@@ -15,19 +15,19 @@
         self.el = _this;
         return;
       }
-    })
+    });
     console.log('self', self);
     if (self.el === undefined) {
       return;
     }
     self.navs = self.el.find('.nav_title');
-  };
+  }
 
   ResourceContainer.prototype.initUI = function() {
     this.el.addClass(DE_TOP_CLASS);
     this.initNavsUI();
     this.initTableUI();
-  }
+  };
 
   ResourceContainer.prototype.initNavsUI = function() {
     console.log('init navs ui:', this.navs);
@@ -86,7 +86,7 @@
           checkbox.attr('checked', !checkbox.attr('checked'));
         }
       });
-    })
+    });
   };
 
   ResourceContainer.prototype.getSelectedMagnets = function() {
@@ -119,12 +119,12 @@
     });
 
     // copy & close
-    var clipboard = new Clipboard('.exportbox .copy-close', {
-      target: function(trigger) {
-          return box.find('textarea')[0];
+    var clipboard = new window.Clipboard('.exportbox .copy-close', {
+      target: function() {
+        return box.find('textarea')[0];
       }
     });
-    clipboard.on('success', function(e) {
+    clipboard.on('success', function() {
       // e.clearSelection();
       self.hideExportBox();
     });
@@ -144,10 +144,9 @@
 
     // set exportbox
     this.exportBox = box;
-  }
+  };
 
   ResourceContainer.prototype.showExportBox = function(magnets, text) {
-    var self = this;
     if (this.exportBox === undefined) {
       this.initExportBox();
     }
@@ -157,7 +156,7 @@
     this.exportBox.find('textarea').text(text);
 
     // change ui
-    this.toggleAria2Btn(magnets.length === 0)
+    this.toggleAria2Btn(magnets.length === 0);
 
     // show
     this.exportBox.show();
@@ -192,7 +191,7 @@
     window.postMessage(msg, window.location.origin);
   };
 
-  console.log('dmhy: main.js')
+  console.log('dmhy: main.js');
   console.log('detect jquery:', $);
   // var rc = getResourceContainer();
   var rc = new ResourceContainer();
