@@ -59,6 +59,12 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
   var pg = global.polygoat
 
   var Aria2 = function (opts) {
+    /*
+     opts:
+      - url: http://<host>:<port>/<path>
+      - ws_url: ws://<host>:<port>/<path>
+      - secret
+     */
     this.callbacks = Object.create(null)
     this.lastId = 0
 
@@ -78,7 +84,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
       content.params = m.params
     }
 
-    var url = 'http' + (this.secure ? 's' : '') + '://' + this.host + ':' + this.port + this.path
+    var url = this.url;
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(content),
@@ -165,7 +171,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
   }
 
   Aria2.prototype.open = function (fn) {
-    var url = 'ws' + (this.secure ? 's' : '') + '://' + this.host + ':' + this.port + this.path
+    var url = this.ws_url;
     var socket = this.socket = new WebSocket(url)
     var that = this
     var called = false
@@ -308,11 +314,9 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
   ]
 
   Aria2.options = {
-    'secure': false,
-    'host': 'localhost',
-    'port': 6800,
+    'url': 'http://localhost:6800/jsonrpc',
+    'ws_url': 'http://localhost:6800/jsonrpc',
     'secret': '',
-    'path': '/jsonrpc'
   }
 
   Aria2.methods.forEach(function (method) {
