@@ -12,24 +12,24 @@
   ],
   "web_accessible_resources": [
     "main.js",
-    "clipboard.min.js"
+    "vendor/clipboard.min.js"
   ],
   "background": {
     "persistent": false,
-    "scripts": ["aria2.js", "options.js", "background.js"]
+    "scripts": ["vendor/aria2.js", "lib/options.js", "background.js"]
   },
   "content_scripts": [
     {
       "matches": [
         "*://share.dmhy.org/*"
       ],
-      "css": ["style.css"],
-      "js": ["options.js", "content_script.js"],
+      "css": ["css/style.css"],
+      "js": ["lib/options.js", "content_script.js"],
       "run_at": "document_end"
     }
   ],
   "options_ui": {
-    "page": "options.html",
+    "page": "options_page.html",
     "chrome_style": true
   }
 }
