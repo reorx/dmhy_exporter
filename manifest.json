@@ -4,13 +4,11 @@
   "manifest_version": 2,
   "description": "Export magnets on DMHY",
   "homepage_url": "https://github.com",
-  "browser_action": {
-    "default_title": "Inject!"
-  },
   "permissions": [
-    "tabs",
-    "https://share.dmhy.org/*",
-    "http://share.dmhy.org/*"
+    "storage",
+    "notifications",
+    "*://share.dmhy.org/*",
+    "*://*/jsonrpc/*"
   ],
   "web_accessible_resources": [
     "main.js",
@@ -18,7 +16,7 @@
   ],
   "background": {
     "persistent": false,
-    "scripts": ["aria2.js", "background.js"]
+    "scripts": ["aria2.js", "options.js", "background.js"]
   },
   "content_scripts": [
     {
@@ -26,7 +24,7 @@
         "*://share.dmhy.org/*"
       ],
       "css": ["style.css"],
-      "js": ["content_script.js"],
+      "js": ["options.js", "content_script.js"],
       "run_at": "document_end"
     }
   ],

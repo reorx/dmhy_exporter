@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  padding: 1em;
+}
+form, fieldset {
+  border: 0;
+}
+.options-form {
+}
+.options-form .row {
+  display: flex;
+}
+.options-form fieldset > .row {
+  margin-bottom: 1em;
+}
+.options-form .row > label {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 10em;
+  margin-right: 1em;
+  text-align: right;
+  padding-top: .5em;
+}
+.options-form .row > .content > .row {
+  margin-bottom: .5em;
+}
+.options-form .row > .content input[type="text"] {
+  display: inline-block;
+  width: 25em;
+  margin-right: 1em;
+  flex-shrink: 0;
+}
+.options-form .row > .content .hint {
+  display: inline-block;
+  color: #aaa;
+}
+.options-form .controls {
+  margin-left: 11em;
+}

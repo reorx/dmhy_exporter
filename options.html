@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html>
-<head><title>My Test Extension Options</title></head>
+<head>
+  <title>DMHY Exporter Options</title>
+  <link rel="stylesheet" href="options.css" media="all">
+</head>
 <body>
 
-Favorite color:
-<select id="color">
- <option value="red">red</option>
- <option value="green">green</option>
- <option value="blue">blue</option>
- <option value="yellow">yellow</option>
-</select>
+  <form class="options-form">
+    <fieldset>
+      <div class="row">
+        <label for="rpc_url">RPC URL</label>
+        <div class="content">
+          <div class="row">
+            <input class="option" name="rpc_url" id="rpc_url" type="text" placeholder="http://token:secret@hostname:port/jsonrpc">
+            <span class="hint">Example: http://127.0.0.1:6800/jsonrpc</span>
+          </div>
+          <div class="row">
+            <button class="test-rpc" disabled>Test RPC</button>
+            <span class="response"></span>
+          </div>
+        </div>
+      </div>
 
-<label>
-  <input type="checkbox" id="like">
-  I like colors.
-</label>
+      <div class="row">
+        <label for="rpc_secret">RPC Secret</label>
+        <div class="content">
+          <div class="row">
+            <input class="option" name="rpc_secret" id="rpc_secret" type="text" placeholder="">
+            <span class="hint">Leave empty if --rpc-secret is not set</span>
+          </div>
+        </div>
+      </div>
 
-<div id="status"></div>
-<button id="save">Save</button>
+      <!--
+      <div class="row">
+        <label for=""></label>
+        <div class="content">
+          <label for="cb">
+            <input id="cb" type="checkbox"> I've read the terms and conditions
+          </label>
+        </div>
+      </div>
+      -->
 
-<script>
-// Saves options to chrome.storage
-function save_options() {
-  var color = document.getElementById('color').value;
-  var likesColor = document.getElementById('like').checked;
-  chrome.storage.sync.set({
-    favoriteColor: color,
-    likesColor: likesColor
-  }, function() {
-    // Update status to let user know options were saved.
-    var status = document.getElementById('status');
-    status.textContent = 'Options saved.';
-    setTimeout(function() {
-      status.textContent = '';
-    }, 750);
-  });
-}
+      <div class="controls">
+        <button type="submit" class="">Save</button>
+      </div>
+    </fieldset>
+  </form>
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
-function restore_options() {
-  // Use default value color = 'red' and likesColor = true.
-  chrome.storage.sync.get({
-    favoriteColor: 'red',
-    likesColor: true
-  }, function(items) {
-    document.getElementById('color').value = items.favoriteColor;
-    document.getElementById('like').checked = items.likesColor;
-  });
-}
-document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click',
-    save_options);
-</script>
+  <script src="zepto.js"></script>
+  <script src="aria2.js"></script>
+  <script src="options.js"></script>
+  <script src="messages.js"></script>
+  <script src="options_page.js"></script>
 </body>
 </html>
