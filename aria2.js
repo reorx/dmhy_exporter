@@ -1,3 +1,16 @@
+/*
+polygoat
+https://github.com/sonnyp/polygoat
+
+ISC License
+
+Copyright (c) 2016, Sonny Piers sonny@fastmail.net
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+*/
+
 ;(function (global) {
   'use strict'
 
@@ -23,26 +36,27 @@
   } else {
     window.polygoat = polygoat
   }
-}(typeof global !== 'undefined' ? global : this));
+}(typeof global !== 'undefined' ? global : this))
+
+
+/*
+aria2.js
+https://github.com/sonnyp/aria2.js
+
+ISC License
+Copyright (c) 2015, Sonny Piers sonny@fastmail.net
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+*/
 
 ;(function (global) {
   'use strict'
 
-  var WebSocket
-  var fetch
-  var pg
-
-  var isNode = typeof module !== 'undefined' && module.exports
-
-  if (isNode) {
-    WebSocket = require('ws')
-    fetch = require('node-fetch')
-    pg = require('polygoat')
-  } else {
-    WebSocket = global.WebSocket
-    fetch = global.fetch
-    pg = global.polygoat
-  }
+  var WebSocket = global.WebSocket
+  var fetch = global.fetch
+  var pg = global.polygoat
 
   var Aria2 = function (opts) {
     this.callbacks = Object.create(null)
@@ -316,9 +330,5 @@
     Aria2.prototype[event] = function () {}
   })
 
-  if (isNode) {
-    module.exports = Aria2
-  } else {
-    global.Aria2 = Aria2
-  }
+  global.Aria2 = Aria2
 }(this))
