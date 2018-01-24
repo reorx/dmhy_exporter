@@ -21,3 +21,11 @@ permissions explanation:
   For accessing aria2 json rpc. This host permission is not necessary if aria2
   has enabled CORS support (`--rpc-allow-origin-all`). But if it hasn't,
   this permission will help the extension avoid CORS problems.
+
+
+Credits
+
+- icon: https://thenounproject.com/term/flower/3695/
+- clipboard.js
+- aria2.js
+- zepto
