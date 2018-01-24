@@ -4,6 +4,11 @@
   "manifest_version": 2,
   "description": "Export magnets on DMHY",
   "homepage_url": "https://github.com",
+  "icons": {
+    "16": "image/icon128.png",
+    "48": "image/icon128.png",
+    "128": "image/icon128.png"
+  },
   "permissions": [
     "storage",
     "notifications",
